@@ -12,7 +12,6 @@ function App() {
     <div className="App">
       <Header />
       <UserSearch />
-      <Form />
       <Footer />
     </div>
   );
