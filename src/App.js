@@ -1,9 +1,11 @@
 // App.js
 import './App.css';
+// import content to page
 import Header from './components/Header.js';
 import UserSearch from './components/UserSearch.js';
-import Form from './components/Form.js';
 import Footer from './components/Footer.js';
+// import Routing to page
+import { Link, Route, Routes } from 'react-router-dom';
 
 
 

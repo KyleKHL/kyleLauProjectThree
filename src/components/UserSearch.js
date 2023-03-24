@@ -13,8 +13,8 @@ const UserSearch = () => {
     // 1b) initialize state for API request error
     const [ apiError, setApiError ] = useState(false);
 
-    // 1c) initialize state for userInput for ingredient input
-    const [ ingredInput, setIngredInput ] = useState('');
+    // 1c) initialize state for userInput for ingredient input ONE
+    const [ ingredInputOne, setIngredInputOne ] = useState('');
 
     // 3. define submit event handler - to be passed down into Form.js
     const handleSubmit = (event) => {
@@ -26,10 +26,10 @@ const UserSearch = () => {
     const handleChange = (event) => {
 
         if(event.target.value === ''){
-            setIngredInput('');
+            setIngredInputOne('');
         }
 
-        setIngredInput(event.target.value.trim());
+        setIngredInputOne(event.target.value.trim());
     }
 
     // 2. fetch data from API
@@ -42,7 +42,8 @@ const UserSearch = () => {
             app_id: appId,
             app_key: apiKey,
             type: 'public',
-            q: ingredInput,
+            q: ingredInputOne,
+            random: true,
         })
 
         // fetch recipe data
@@ -56,9 +57,11 @@ const UserSearch = () => {
                 }
             })
             .then((apiData) => {
-                // console.log(apiData.hits)
+                console.log(apiData.hits)
+                const apiArray = apiData.hits;
+                apiArray.splice(10, 10)
                 // update recipe state:
-                setRecipe(apiData.hits)
+                setRecipe(apiArray)
                 // update apiError as false
                 setApiError(false)
             })
@@ -79,7 +82,7 @@ const UserSearch = () => {
                 errorState = {apiError}
                 handleSubmit = {handleSubmit}
                 handleChange = {handleChange}
-                typedIngredValue = {ingredInput}
+                typedIngredValue = {ingredInputOne}
             />
             <RecipeGallery recipeArray = {recipe} />
         </>

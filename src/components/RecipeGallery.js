@@ -15,8 +15,9 @@ const RecipeGallery = (props) => {
                         <IndivRecipe 
                         key = {crypto.randomUUID()}
                         title = {individualRecipe.recipe.label}
-                        image = {individualRecipe.recipe.image}
+                        image = {individualRecipe.recipe.images.SMALL.url}
                         altText= {individualRecipe.recipe.label}
+                        url= {individualRecipe.recipe.url}
                         
                         />
                     )
