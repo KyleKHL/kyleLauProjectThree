@@ -1,8 +1,10 @@
 // UserSearch.js
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Form from "./Form.js";
 import RecipeGallery from "./RecipeGallery.js";
+// import firebase:
+import firebaseInfo from "../firebase.js";
+
 
 
 const UserSearch = () => {
@@ -13,8 +15,16 @@ const UserSearch = () => {
     // 1b) initialize state for API request error
     const [ apiError, setApiError ] = useState(false);
 
-    // 1c) initialize state for userInput for ingredient input ONE
-    const [ ingredInputOne, setIngredInputOne ] = useState('');
+    // create default values to ALL inputfields 
+    const initialValues = {
+        inputOne: '',
+        inputTwo: '',
+        inputThree: '',
+        selectMealType: '',
+        cuisineType: '',
+    }
+    // 1c) initialize state for userInput for ingredient inputs
+    const [values, setValues] = useState(initialValues)
 
     // 3. define submit event handler - to be passed down into Form.js
     const handleSubmit = (event) => {
@@ -24,14 +34,20 @@ const UserSearch = () => {
     }
     // 4. handleChange function to allow react to control input state
     const handleChange = (event) => {
+        // if(event.target.value === ''){
+        //     setIngredInputOne('');
+        // }
 
-        if(event.target.value === ''){
-            setIngredInputOne('');
-        }
+        const { name, value } = event.target;
 
-        setIngredInputOne(event.target.value.trim());
-    }
+        setValues({
+            ...values,
+            [name]: value,
+        });
 
+        // setIngredInputOne(event.target.value.trim());
+    };
+console.log(values)
     // 2. fetch data from API
     const fetchRecipeData = () => {
         // construct URL
@@ -42,7 +58,9 @@ const UserSearch = () => {
             app_id: appId,
             app_key: apiKey,
             type: 'public',
-            q: ingredInputOne,
+            q: `${values.inputOne} ${values.inputTwo} ${values.inputThree}`,
+            mealType: values.selectMealType,
+            cuisineType: values.cuisineType,
             random: true,
         })
 
@@ -82,7 +100,7 @@ const UserSearch = () => {
                 errorState = {apiError}
                 handleSubmit = {handleSubmit}
                 handleChange = {handleChange}
-                typedIngredValue = {ingredInputOne}
+                inputValue = {values}
             />
             <RecipeGallery recipeArray = {recipe} />
         </>
