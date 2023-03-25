@@ -7,12 +7,18 @@ const Favorites = (props) => {
                 <h2>Favorite Dishes:</h2>
                 <ul className="listOfFavorites">
                     {props.favRecipeList.map((favRecipe) => {
+
+                        // remove favRecipe clickHandler
+                        // const removeClickHandler = () => {
+
+                        // }
+                        console.log(favRecipe)
                         return(
-                        <li key={crypto.randomUUID()}>
-                            <h3>{favRecipe.title}</h3>
-                            <img src={favRecipe.image} alt={favRecipe.altText} />
-                            <a target={"_blank"} href={favRecipe.url}>Link to Recipe</a>
-                            <button>❌</button>
+                        <li key={favRecipe.key}>
+                            <h3>{favRecipe.name.title}</h3>
+                            <img src={favRecipe.name.image} alt={favRecipe.name.altText} />
+                            <a target={"_blank"} href={favRecipe.name.url}>Link to Recipe</a>
+                                <button onClick={() => props.removeClickHandler(favRecipe.key)}>❌</button>
                         </li>
                         )
                     })}

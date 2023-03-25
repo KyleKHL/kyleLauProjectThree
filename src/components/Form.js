@@ -43,6 +43,7 @@ const Form = (props) => {
                     id="mealType" 
                     onChange={props.handleChange}
                     value={props.inputValue.selectMealType}
+                    required
                     >
                         <option value="" disabled>Meal Type:</option>
                         <option value="Breakfast">Breakfast</option>
@@ -58,6 +59,7 @@ const Form = (props) => {
                         id="enterCuisineType"
                         onChange={props.handleChange}
                         value={props.inputValue.cuisineType}
+                        required
                     >
                         <option value="" disabled>Cuisine:</option>
                         <option value="American">American</option>
