@@ -1,32 +1,94 @@
 // RecipeGallery.js
+import Bookmark from './Bookmark.js';
+import Favorites from './Favorites.js';
 import IndivRecipe from "./IndivRecipe.js";
+// import useEffect and useState
+import { useEffect, useState } from "react";
+
+// import firebase & modules:
+import firebaseInfo from "../firebase.js";
+import { getDatabase, ref, onValue, push, remove } from "firebase/database";
 
 
 const RecipeGallery = (props) => {
+    // setState for favorites data
+    const [ favData, setFavData ] = useState([])
 
-    // console.log(props.recipeArray)
+    // start of firebase
+    useEffect(() => {
+
+        const database = getDatabase(firebaseInfo);
+        const dbRef = ref(database)
+
+        onValue(dbRef, (dbResponse) => {
+
+            // empty array for favorites page
+            const favArray = [];
+
+            const favRecipeData = dbResponse.val();
+            
+            for (let key in favRecipeData) {
+                favArray.push(favRecipeData[key])
+            }
+
+            setFavData(favArray)
+            
+        })
+
+    }, [])
+        // end of firebase
 
     return(
-        <section className="recipeGallerySection">
-            <div className="wrapper">
-                <ul className="recipeGallery">
-                    {/* map through the array */}
-                    {props.recipeArray.map((individualRecipe) => {
-                        return (
-                            <IndivRecipe 
-                            key = {crypto.randomUUID()}
-                            title = {individualRecipe.recipe.label}
-                            image = {individualRecipe.recipe.images.SMALL.url}
-                            altText= {individualRecipe.recipe.label}
-                            url= {individualRecipe.recipe.url}
-                            
-                            />
-                        )
-                    })}
+        <>
+            <section className="recipeGallerySection">
+                <div className="wrapper">
+                    <ul className="recipeGallery">
+                        {/* map through the array */}
+                        {props.recipeArray.map((individualRecipe) => {
 
-                </ul>
-            </div>
-        </section>
+
+                            const favoriteClickHandler = () => {
+                                
+                                const favRecipeObj = {
+                                    title: individualRecipe.recipe.label,
+                                    image: individualRecipe.recipe.images.SMALL.url,
+                                    altText: individualRecipe.recipe.label,
+                                    url: individualRecipe.recipe.url,
+                                }
+                                // reference to database
+                                const database = getDatabase(firebaseInfo);
+                                const dbRef = ref(database);
+                                // push indivRecipe state variable into database
+                                push(dbRef, favRecipeObj)
+
+                            }
+
+
+                            return (
+                                <IndivRecipe 
+                                key = {crypto.randomUUID()}
+                                title = {individualRecipe.recipe.label}
+                                image = {individualRecipe.recipe.images.SMALL.url}
+                                altText= {individualRecipe.recipe.label}
+                                url= {individualRecipe.recipe.url}
+                                favoriteClickHandler = {favoriteClickHandler}
+                                />
+                            )
+                        })}
+
+                    </ul>
+                </div>
+            </section>
+            {/* favorites page */}
+            <Favorites 
+            favRecipeList = {favData}
+            />
+            {/* bookmark page */}
+            <Bookmark 
+            
+
+            />
+        </>
     )
 }
 

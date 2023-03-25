@@ -21,6 +21,14 @@ ul {
   padding: 0;
 }
 
+body {
+
+  background-image: url(../images/scott-webb-UjupleczBOY-unsplash.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: none;
+}
+
 ul {
   list-style: none;
 }
@@ -40,18 +48,24 @@ img {
   width: 85%;
   margin: 0 auto;
 }
+/* END of global styles */
+
+
 
 /* recipe gallery */
-.recipeGallery {
+.recipeGallery,
+.listOfFavorites {
   display: flex;
   flex-wrap: wrap;
 }
 
-.recipeGallery li {
+.recipeGallery li,
+.listOfFavorites li {
   margin: 10px;
   width: calc((100% / 3) - 20px);
 }
 
-.recipeGallery li img {
+.recipeGallery li img,
+.listOfFavorites li img {
   width: 250px;
 }

@@ -24,7 +24,7 @@ const Form = (props) => {
                         type="text" 
                         id="userInputTwo"
                         name="inputTwo"
-                        placeholder="Ingredient #2"
+                        placeholder="Optional: Ingredient #2"
                         onChange={props.handleChange}
                         value={props.inputValue.inputTwo}
                     />
@@ -33,7 +33,7 @@ const Form = (props) => {
                         type="text"
                         id="userInputThree"
                         name="inputThree"
-                        placeholder="Ingredient #3"
+                        placeholder="Optional: Ingredient #3"
                         onChange={props.handleChange}
                         value={props.inputValue.inputThree}
                     />

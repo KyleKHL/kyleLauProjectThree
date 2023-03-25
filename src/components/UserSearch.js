@@ -1,9 +1,14 @@
 // UserSearch.js
-import { useState, useEffect } from "react";
 import Form from "./Form.js";
 import RecipeGallery from "./RecipeGallery.js";
-// import firebase:
-import firebaseInfo from "../firebase.js";
+// import firebase & modules:
+// import firebaseInfo from "../firebase.js";
+// import { getDatabase, ref, onValue, push, remove } from "firebase/database";
+// import react hooks
+import { useState, useEffect } from "react";
+
+
+
 
 
 
@@ -14,6 +19,39 @@ const UserSearch = () => {
 
     // 1b) initialize state for API request error
     const [ apiError, setApiError ] = useState(false);
+
+//     // DB A) create state for recipes
+//     const [ recipeDb, setRecipeDb] = useState([])
+
+//     const favoriteClickHandler = () => {
+//         // reference to database
+//         const database = getDatabase(firebaseInfo);
+//         const dbRef = ref(database)
+//         // push indivRecipe state variable into database
+//         push(dbRef, individualRecipe)
+        
+//     }
+
+//     // start of firebase
+//     useEffect(() => {
+
+//         const database = getDatabase(firebaseInfo);
+//         const dbRef = ref(database)
+
+//         onValue(dbRef, (dbResponse) => {
+
+//             console.log(dbResponse.val())
+//         })
+
+
+
+
+
+
+
+
+//     }, [])
+// // end of firebase
 
     // create default values to ALL inputfields 
     const initialValues = {
@@ -47,7 +85,7 @@ const UserSearch = () => {
 
         // setIngredInputOne(event.target.value.trim());
     };
-console.log(values)
+
     // 2. fetch data from API
     const fetchRecipeData = () => {
         // construct URL
@@ -75,7 +113,6 @@ console.log(values)
                 }
             })
             .then((apiData) => {
-                console.log(apiData.hits)
                 const apiArray = apiData.hits;
                 apiArray.splice(10, 10)
                 // update recipe state:
