@@ -1,14 +1,17 @@
 // UserSearch.js
 import Form from "./Form.js";
 import RecipeGallery from "./RecipeGallery.js";
+import Favorites from "./Favorites.js";
+
+// import Route
+import { Link, Route, Routes, Outlet } from "react-router-dom";
+
+
 // import firebase & modules:
-// import firebaseInfo from "../firebase.js";
-// import { getDatabase, ref, onValue, push, remove } from "firebase/database";
+import firebaseInfo from "../firebase.js";
+import { getDatabase, ref, onValue, push, remove } from "firebase/database";
 // import react hooks
 import { useState, useEffect } from "react";
-
-
-
 
 
 
@@ -21,37 +24,43 @@ const UserSearch = () => {
     const [ apiError, setApiError ] = useState(false);
 
 //     // DB A) create state for recipes
-//     const [ recipeDb, setRecipeDb] = useState([])
+        const [favData, setFavData] = useState([])
 
-//     const favoriteClickHandler = () => {
-//         // reference to database
-//         const database = getDatabase(firebaseInfo);
-//         const dbRef = ref(database)
-//         // push indivRecipe state variable into database
-//         push(dbRef, individualRecipe)
-        
-//     }
+    // start of firebase
+    useEffect(() => {
 
-//     // start of firebase
-//     useEffect(() => {
+        const database = getDatabase(firebaseInfo);
+        const dbRef = ref(database)
 
-//         const database = getDatabase(firebaseInfo);
-//         const dbRef = ref(database)
+        onValue(dbRef, (dbResponse) => {
 
-//         onValue(dbRef, (dbResponse) => {
+            // empty array for favorites page
+            const favArray = [];
 
-//             console.log(dbResponse.val())
-//         })
+            const favRecipeData = dbResponse.val();
+
+            for (let key in favRecipeData) {
+                // favArray.push(favRecipeData[key])
+                favArray.push({ key: key, name: favRecipeData[key] })
+            }
+            setFavData(favArray)
+
+        })
+
+    }, [])
+        // end of firebase
+
+    // function to remove items
+    const removeClickHandler = (recipeId) => {
+        // reference to the key
+        const database = getDatabase(firebaseInfo);
+        const dbRef = ref(database, `/${recipeId}`)
+
+        // firebase method to remove()
+        remove(dbRef)
+    }
 
 
-
-
-
-
-
-
-//     }, [])
-// // end of firebase
 
     // create default values to ALL inputfields 
     const initialValues = {
@@ -139,7 +148,15 @@ const UserSearch = () => {
                 handleChange = {handleChange}
                 inputValue = {values}
             />
+
             <RecipeGallery recipeArray = {recipe} />
+            {/* should I put */}
+            <Favorites 
+            favRecipeList={favData}
+            removeClickHandler={removeClickHandler}
+            />
+            
+            {/* Bookmark */}
         </>
     )
 }

@@ -7,12 +7,6 @@ const Favorites = (props) => {
                 <h2>Favorite Dishes:</h2>
                 <ul className="listOfFavorites">
                     {props.favRecipeList.map((favRecipe) => {
-
-                        // remove favRecipe clickHandler
-                        // const removeClickHandler = () => {
-
-                        // }
-                        console.log(favRecipe)
                         return(
                         <li key={favRecipe.key}>
                             <h3>{favRecipe.name.title}</h3>

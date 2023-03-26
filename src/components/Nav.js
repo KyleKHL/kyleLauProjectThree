@@ -1,6 +1,7 @@
 // Nav.js
 // import Elements
 import Favorites from './Favorites.js';
+import Bookmark from './Bookmark.js';
 
 // import Routing to page
 import { Link, Route, Routes, Outlet } from 'react-router-dom';
@@ -12,7 +13,7 @@ const Nav = () => {
             <nav className="menu">
                 <ul className="menuList">
                     <li>
-                        <Link to="/">Home</Link>
+                        <Link to="/search">Search</Link>
                     </li>
                     <li>
                         <Link to="/favorites">Favorites</Link>
