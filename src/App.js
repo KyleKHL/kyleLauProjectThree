@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <nav className="menu">
+      {/* <nav className="menu">
         <ul className="menuList">
           <li>
             <Link to="/">Search</Link>
@@ -30,14 +30,14 @@ function App() {
             <Link to="/bookmark">Bookmark</Link>
           </li>
         </ul>
-      </nav>
+      </nav> */}
       <UserSearch />
       <Footer />
 
-      <Routes>
+      {/* <Routes> */}
         {/* <Route path='/' element={ <RecipeGallery />}/> */}
         {/* <Route path='/favorites' element={ <Favorites />} /> */}
-      </Routes>
+      {/* </Routes> */}
 
       <Outlet />
     </div>

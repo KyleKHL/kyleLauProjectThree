@@ -54,18 +54,21 @@ img {
 
 /* recipe gallery */
 .recipeGallery,
-.listOfFavorites {
+.listOfFavorites,
+.listOfBookmarks {
   display: flex;
   flex-wrap: wrap;
 }
 
 .recipeGallery li,
-.listOfFavorites li {
+.listOfFavorites li,
+.listOfBookmarks li {
   margin: 10px;
   width: calc((100% / 3) - 20px);
 }
 
 .recipeGallery li img,
-.listOfFavorites li img {
+.listOfFavorites li img,
+.listOfBookmarks li img {
   width: 250px;
 }

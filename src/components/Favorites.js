@@ -4,7 +4,7 @@ const Favorites = (props) => {
     return (
         <section className="favoritesSection">
             <div className="wrapper">
-                <h2>Favorite Dishes:</h2>
+                <h2>Favorite Dishes</h2>
                 <ul className="listOfFavorites">
                     {props.favRecipeList.map((favRecipe) => {
                         return(

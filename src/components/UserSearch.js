@@ -2,6 +2,7 @@
 import Form from "./Form.js";
 import RecipeGallery from "./RecipeGallery.js";
 import Favorites from "./Favorites.js";
+import Bookmark from "./Bookmark.js";
 
 // import Route
 import { Link, Route, Routes, Outlet } from "react-router-dom";
@@ -16,29 +17,34 @@ import { useState, useEffect } from "react";
 
 
 const UserSearch = () => {
-
+    
     // 1a) initialize state for recipe data returned from API
     const [ recipe, setRecipe ] = useState([]);
 
     // 1b) initialize state for API request error
     const [ apiError, setApiError ] = useState(false);
 
-//     // DB A) create state for recipes
+    // DB A) create state for favorited recipes
         const [favData, setFavData] = useState([])
+    // B) create state for bookmarked recipes
+        const [bookmarkData, setBookmarkData] = useState([])
 
     // start of firebase
     useEffect(() => {
 
         const database = getDatabase(firebaseInfo);
-        const dbRef = ref(database)
+        // reference to favorite obj
+        const favDBRef = ref(database, `favorites`)
+        // reference to bookmark obj
+        const bookmarkDBRef = ref(database, `bookmark`)
 
-        onValue(dbRef, (dbResponse) => {
-
+        onValue(favDBRef, (dbResponse) => {
+            
             // empty array for favorites page
             const favArray = [];
 
             const favRecipeData = dbResponse.val();
-
+            
             for (let key in favRecipeData) {
                 // favArray.push(favRecipeData[key])
                 favArray.push({ key: key, name: favRecipeData[key] })
@@ -47,14 +53,39 @@ const UserSearch = () => {
 
         })
 
+        onValue(bookmarkDBRef, (dbResponse) => {
+
+            // empty array for favorites page
+            const bookmarkArray = [];
+
+            const bookmarkRecipeData = dbResponse.val();
+            
+            for (let key in bookmarkRecipeData) {
+
+                bookmarkArray.push({ key: key, name: bookmarkRecipeData[key] })
+            }
+            setBookmarkData(bookmarkArray)
+
+        })
+
     }, [])
         // end of firebase
 
-    // function to remove items
-    const removeClickHandler = (recipeId) => {
+    // function to remove favorited items
+    const removeFavClickHandler = (recipeId) => {
         // reference to the key
         const database = getDatabase(firebaseInfo);
-        const dbRef = ref(database, `/${recipeId}`)
+        const dbRef = ref(database, `favorites/${recipeId}`)
+
+        // firebase method to remove()
+        remove(dbRef)
+    }
+
+    // function to remove bookmarked items
+    const removeBookmarkedClickHandler = (recipeId) => {
+        // reference to the key
+        const database = getDatabase(firebaseInfo);
+        const dbRef = ref(database, `bookmark/${recipeId}`)
 
         // firebase method to remove()
         remove(dbRef)
@@ -149,14 +180,31 @@ const UserSearch = () => {
                 inputValue = {values}
             />
 
+            <nav className="menu">
+                <ul className="menuList">
+                    <li>
+                        <Link to="/">Search</Link>
+                    </li>
+                    <li>
+                        <Link to="/favorites">Favorites</Link>
+                    </li>
+                    <li>
+                        <Link to="/bookmark">Bookmark</Link>
+                    </li>
+                </ul>
+            </nav>
+
             <RecipeGallery recipeArray = {recipe} />
             {/* should I put */}
             <Favorites 
             favRecipeList={favData}
-            removeClickHandler={removeClickHandler}
+            removeClickHandler={removeFavClickHandler}
             />
             
-            {/* Bookmark */}
+            <Bookmark 
+            bookmarkRecipeList={bookmarkData}
+            removeClickHandler={removeBookmarkedClickHandler}
+            />
         </>
     )
 }

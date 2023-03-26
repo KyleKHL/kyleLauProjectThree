@@ -1,6 +1,4 @@
 // RecipeGallery.js
-import Bookmark from './Bookmark.js';
-import Favorites from './Favorites.js';
 import IndivRecipe from "./IndivRecipe.js";
 
 // import firebase & modules:
@@ -28,9 +26,24 @@ const RecipeGallery = (props) => {
                                 }
                                 // reference to database
                                 const database = getDatabase(firebaseInfo);
-                                const dbRef = ref(database);
+                                const dbRef = ref(database, `favorites`);
                                 // push indivRecipe state variable into database
                                 push(dbRef, favRecipeObj)
+                            }
+                            
+                            const bookmarkClickHandler = () => {
+
+                                const bookmarkRecipeObj = {
+                                    title: individualRecipe.recipe.label,
+                                    image: individualRecipe.recipe.images.SMALL.url,
+                                    altText: individualRecipe.recipe.label,
+                                    url: individualRecipe.recipe.url,
+                                }
+                                // reference to database
+                                const database = getDatabase(firebaseInfo);
+                                const dbRef = ref(database, `bookmark`);
+                                // push indivRecipe state variable into database
+                                push(dbRef, bookmarkRecipeObj)
 
                             }
 
@@ -43,6 +56,7 @@ const RecipeGallery = (props) => {
                                 altText= {individualRecipe.recipe.label}
                                 url= {individualRecipe.recipe.url}
                                 favoriteClickHandler = {favoriteClickHandler}
+                                bookmarkClickHandler = {bookmarkClickHandler}
                                 />
                             )
                         })}
