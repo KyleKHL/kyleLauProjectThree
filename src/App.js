@@ -39,7 +39,7 @@ function App() {
         {/* <Route path='/favorites' element={ <Favorites />} /> */}
       {/* </Routes> */}
 
-      <Outlet />
+
     </div>
   );
 }
