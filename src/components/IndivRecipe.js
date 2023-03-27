@@ -1,7 +1,7 @@
 // IndivRecipe.js
 
 const IndivRecipe = (props) => {
-    // console.log(props)
+
     return(
         <li>
             <h3>{props.title}</h3>

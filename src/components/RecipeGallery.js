@@ -12,6 +12,7 @@ const RecipeGallery = (props) => {
         <>
             <section className="recipeGallerySection">
                 <div className="wrapper">
+                    <h3>Search Results:</h3>
                     <ul className="recipeGallery">
                         {/* map through the array */}
                         {props.recipeArray.map((individualRecipe) => {

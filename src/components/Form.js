@@ -5,10 +5,10 @@ const Form = (props) => {
     return (
         <section className="formSection">
             <div className="wrapper">
-                <form onSubmit={props.handleSubmit}>
+                <form className="ingredientForm" onSubmit={props.handleSubmit}>
                     {/* error message */}
                     {/* <p>Sorry! Unfortunately with the free version of the API, there can only be 10 API calls a minute . . .  please wait a minute for more API calls to get those tasty recipes! </p> */}
-                    <label htmlFor="userInput"></label>
+                    <label htmlFor="userInput" className="sr-only">Enter Ingredient #1</label>
                     <input 
                         type="text" 
                         id="userInputOne"
@@ -19,7 +19,7 @@ const Form = (props) => {
                         value={props.inputValue.inputOne}
                         required
                     />
-                    <label htmlFor="userInputTwo"></label>
+                    <label htmlFor="userInputTwo" className="sr-only">Optional: Enter Ingredient #2</label>
                     <input 
                         type="text" 
                         id="userInputTwo"
@@ -28,7 +28,7 @@ const Form = (props) => {
                         onChange={props.handleChange}
                         value={props.inputValue.inputTwo}
                     />
-                    <label htmlFor="userInputThree"></label>
+                    <label htmlFor="userInputThree" className="sr-only">Optional: Enter Ingredient #3</label>
                     <input
                         type="text"
                         id="userInputThree"
@@ -38,6 +38,7 @@ const Form = (props) => {
                         value={props.inputValue.inputThree}
                     />
 
+                    <label htmlFor="mealType" className="sr-only">Select Meal Type:</label>
                     <select 
                     name="selectMealType" 
                     id="mealType" 
@@ -54,6 +55,7 @@ const Form = (props) => {
                         <option value="Teatime">Tea Time</option>
                     </select>
 
+                    <label htmlFor="enterCuisineType" className="sr-only">Select Meal Type:</label>
                     <select
                         name="cuisineType"
                         id="enterCuisineType"

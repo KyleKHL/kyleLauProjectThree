@@ -15,22 +15,31 @@ h3,
 h4,
 h5,
 h6,
-p,
-ul {
+p {
   margin: 0;
   padding: 0;
+  line-height: 1.6;
 }
+
 
 body {
 
   background-image: url(../images/scott-webb-UjupleczBOY-unsplash.jpg);
-  background-position: center;
   background-size: cover;
   background-repeat: none;
 }
 
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 a{
@@ -38,6 +47,7 @@ a{
 }
 
 img {
+  max-height: auto;
   width: 100%;
   display: block;
 
@@ -50,25 +60,112 @@ img {
 }
 /* END of global styles */
 
+// Start of Header
+header {
+  h1 {
+    text-align: center;
+  }
+  p{
+    text-align: center;
+  }
+}
+// End of Header
 
+// Start of Form
+.formSection {
+  margin: 30px 0;
+  .wrapper {
+      display: flex;
+      justify-content: center;
+    }
+}
+
+
+.ingredientForm {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  min-width: 310px;
+  gap: 10px;
+  input,
+  select,
+  button {
+    padding: 10px 0;
+    text-align: center;
+  }
+}
+// End of Form
+
+// nav
+.menu {
+  margin: 40px 0 40px 0;
+  .menuList {
+    display: flex;
+    margin-left: 30px;
+    li {
+
+      
+    }
+  }
+}
+
+.menuItem {
+  padding: 40px;
+  color: black;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+.menuItem:hover{
+  transition: 300ms;
+  background-color: #000;
+  color: white;
+}
+
+.resultsPage {
+  background-color: #6d9f71;
+  padding: 40px 50px;
+}
+
+.favoritesPage {
+  background-color: #3e99df;
+}
+
+.bookmarkPage {
+  background-color: #ffdc83;
+}
+// end of nav
 
 /* recipe gallery */
+.recipeGallery {
+  min-height: 300px;
+}
+.favoritesSection .wrapper {
+  border: 6px solid #3e99df;
+  border-radius: 2rem;
+  padding: 10px;
+}
+.bookmarksSection .wrapper {
+  border: 6px solid #ffdc83;
+  border-radius: 2rem;
+  padding: 10px;
+}
+.recipeGallerySection .wrapper {
+  border: 6px solid #6d9f71;
+  border-radius: 2rem;
+  padding: 10px;
+}
+
+
 .recipeGallery,
 .listOfFavorites,
 .listOfBookmarks {
   display: flex;
   flex-wrap: wrap;
-}
-
-.recipeGallery li,
-.listOfFavorites li,
-.listOfBookmarks li {
-  margin: 10px;
-  width: calc((100% / 3) - 20px);
-}
-
-.recipeGallery li img,
-.listOfFavorites li img,
-.listOfBookmarks li img {
-  width: 250px;
+  li{
+    margin: 10px;
+    width: calc((100% / 3) - 20px);
+    img {
+        width: 250px;
+    }
+  }
 }

@@ -5,7 +5,7 @@ import Favorites from "./Favorites.js";
 import Bookmark from "./Bookmark.js";
 
 // import Route
-import { Link, Route, Routes, Outlet } from "react-router-dom";
+import { Link, Route, Routes, Outlet, Router } from "react-router-dom";
 
 
 // import firebase & modules:
@@ -181,30 +181,41 @@ const UserSearch = () => {
             />
 
             <nav className="menu">
-                <ul className="menuList">
-                    <li>
-                        <Link to="/">Search</Link>
-                    </li>
-                    <li>
-                        <Link to="/favorites">Favorites</Link>
-                    </li>
-                    <li>
-                        <Link to="/bookmark">Bookmark</Link>
-                    </li>
-                </ul>
+                <div className="wrapper">
+                    <ul className="menuList">
+                        <li>
+                            <Link className="menuItem resultsPage" to="/">Results</Link>
+                        </li>
+                        <li>
+                            <Link className="menuItem favoritesPage" to="/favorites">Favorites</Link>
+                        </li>
+                        <li>
+                            <Link className="menuItem bookmarkPage" to="/bookmark">Bookmark</Link>
+                        </li>
+                    </ul>
+                </div>
             </nav>
 
-            <RecipeGallery recipeArray = {recipe} />
-            {/* should I put */}
-            <Favorites 
-            favRecipeList={favData}
-            removeClickHandler={removeFavClickHandler}
-            />
+            <Routes>
+                <Route 
+                    path="/" 
+                    element={ <RecipeGallery 
+                                recipeArray={recipe} 
+                                /> } />
+                <Route 
+                    path="/favorites" 
+                    element={<Favorites 
+                                favRecipeList={favData}
+                                removeClickHandler={removeFavClickHandler}
+                                />} />
+                <Route 
+                    path="/bookmark" 
+                    element={<Bookmark 
+                                bookmarkRecipeList={bookmarkData}
+                                removeClickHandler={removeBookmarkedClickHandler}/>} />
+            </Routes>
             
-            <Bookmark 
-            bookmarkRecipeList={bookmarkData}
-            removeClickHandler={removeBookmarkedClickHandler}
-            />
+            
         </>
     )
 }
