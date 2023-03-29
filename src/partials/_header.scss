@@ -1,0 +1,23 @@
+// Start of Header
+header {
+    h1 {
+        text-align: center;
+        font-size: 6rem;
+        font-family: 'Playfair Display', serif;
+        font-style: oblique;
+        font-weight: 900;
+        background-image: linear-gradient(to right top, #934176, #95528a, #96639c, #9674ac, #9784bb, #b08cc4, #ca93cb, #e39bcf, #ffa0b8, #ffb294, #ffd275, #f9f871);
+        background-clip: text;
+        -webkit-text-stroke: 1px #00000033;
+        -webkit-text-fill-color: transparent;
+    }
+
+    p {
+        text-align: center;
+        font-size: 1.2rem;
+        background-color: rgba(255, 255, 255, 0.586);
+        padding: 5px;
+    }
+}
+
+// End of Header

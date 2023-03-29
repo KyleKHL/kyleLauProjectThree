@@ -1,0 +1,158 @@
+/* recipe gallery */
+.recipeGallery,
+.listOfFavorites,
+.listOfBookmarks {
+    min-height: 300px;
+}
+
+.recipeGallerySection .wrapper,
+.favoritesSection .wrapper,
+.bookmarksSection .wrapper {
+    border-radius: 0.2rem;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.435);
+
+    h2 {
+        font-family: 'Jaldi', sans-serif;
+        text-align: center;
+        font-size: 2rem;
+    }
+    h3{
+        text-align: center;
+    }
+}
+
+.favoritesSection .wrapper {
+    border: 8px solid #ff9fbe;
+    li {
+        background-color: #ff9fbe58;
+    }
+    a {
+        background-color: #ff9fbe;
+    }
+}
+
+.bookmarksSection .wrapper {
+    border: 8px solid #ffd077;
+    li {
+        background-color: #ffd07758;
+    }
+    a {
+        background-color: #faba44;
+    }
+}
+
+.recipeGallerySection .wrapper {
+    border: 8px solid #9999cc;
+    li {
+        background-color: #9999cc58;
+    }
+}
+
+
+.recipeGallery,
+.listOfFavorites,
+.listOfBookmarks {
+    display: flex;
+    flex-wrap: wrap;
+
+    li {
+        border: 2px solid black;
+        border-radius: 0.2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        text-align: center;
+        margin: 10px;
+        width: calc((100% / 3) - 20px);
+        padding: 5px;
+
+        h3 {
+            text-shadow: 0px 1px #00000033;
+        }
+
+        img {
+            width: 85%;
+            border-radius: 0.2rem;
+            border: 3px black;
+            border-style: solid;
+        }
+
+        a {
+            padding: 10px 8px 17px 8px;
+            background-color: #9999cc;
+            color: black;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            border-radius: 0.2rem;
+            box-shadow: inset 0 -8px 0 0 #00000033;
+            transition: 150ms;
+            text-shadow: 0px 1.5px #00000033;
+        }
+        a:hover,
+        a:focus {
+            box-shadow: inset 0 -4px 0 0 #00000033;
+        }
+        a:active {
+            box-shadow: inset 0 -1px 0 0 #00000033;
+        }
+
+    }
+}
+
+.recipeGallery .buttonContainer{
+    display: flex;
+    gap: 10px;
+    button {
+        padding: 10px 10px 10px 10px;
+        margin-bottom: 10px;
+        background-color: #9999cc;
+        color: black;
+        font-size: 1.5rem;
+        border: none;
+        border-radius: 0.2rem;
+        box-shadow: inset 0 -8px 0 0 #00000033;
+        transition: 150ms;
+        text-shadow: 0px 1.5px #00000033;
+        }
+    button:hover,
+    button:focus {
+        box-shadow: inset 0 -4px 0 0 #00000033;
+    }
+
+    button:active {
+        box-shadow: inset 0 -1px 0 0 #00000033;
+    }
+}
+
+
+.favBookmarkButtonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    button {
+        width: 70px;
+        padding: 10px 10px 10px 10px;
+        margin-bottom: 10px;
+        background-color: silver;
+        color: black;
+        font-size: 1.5rem;
+        border: none;
+        border-radius: 0.2rem;
+        box-shadow: inset 0 -8px 0 0 #00000033;
+        transition: 150ms;
+        text-shadow: 0px 1.5px #00000033;
+    }
+    button:hover,
+    button:focus {
+        box-shadow: inset 0 -4px 0 0 #00000033;
+    }
+
+    button:active {
+        box-shadow: inset 0 -1px 0 0 #00000033;
+    }
+}

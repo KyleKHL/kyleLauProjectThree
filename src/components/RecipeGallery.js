@@ -3,27 +3,33 @@ import IndivRecipe from "./IndivRecipe.js";
 
 // import firebase & modules:
 import firebaseInfo from "../firebase.js";
-import { getDatabase, ref, onValue, push, remove } from "firebase/database";
+import { getDatabase, ref, push } from "firebase/database";
 
 
 const RecipeGallery = (props) => {
-
+    
     return(
         <>
             <section className="recipeGallerySection">
                 <div className="wrapper">
-                    <h3>Search Results:</h3>
+                    <h2>Search Results:</h2>
+                    
+                    {props.recipeArray.length > 0 ? null : <h3> Get started by searching for recipes using the form above! </h3>}
+                    
                     <ul className="recipeGallery">
+
                         {/* map through the array */}
                         {props.recipeArray.map((individualRecipe) => {
+                            
+                            // destructure individualRecipe.recipe
+                            const { label, images, url } = individualRecipe.recipe;
 
                             const favoriteClickHandler = () => {
-                                
                                 const favRecipeObj = {
-                                    title: individualRecipe.recipe.label,
-                                    image: individualRecipe.recipe.images.SMALL.url,
-                                    altText: individualRecipe.recipe.label,
-                                    url: individualRecipe.recipe.url,
+                                    title: label,
+                                    image: images.SMALL.url,
+                                    altText: label,
+                                    url: url,
                                 }
                                 // reference to database
                                 const database = getDatabase(firebaseInfo);
@@ -33,12 +39,11 @@ const RecipeGallery = (props) => {
                             }
                             
                             const bookmarkClickHandler = () => {
-
                                 const bookmarkRecipeObj = {
-                                    title: individualRecipe.recipe.label,
-                                    image: individualRecipe.recipe.images.SMALL.url,
-                                    altText: individualRecipe.recipe.label,
-                                    url: individualRecipe.recipe.url,
+                                    title: label,
+                                    image: images.SMALL.url,
+                                    altText: label,
+                                    url: url,
                                 }
                                 // reference to database
                                 const database = getDatabase(firebaseInfo);
@@ -47,17 +52,17 @@ const RecipeGallery = (props) => {
                                 push(dbRef, bookmarkRecipeObj)
 
                             }
-
-
+                            
                             return (
                                 <IndivRecipe 
                                 key = {crypto.randomUUID()}
-                                title = {individualRecipe.recipe.label}
-                                image = {individualRecipe.recipe.images.SMALL.url}
-                                altText= {individualRecipe.recipe.label}
-                                url= {individualRecipe.recipe.url}
+                                title = {label}
+                                image = {images.SMALL.url}
+                                altText= {label}
+                                url= {url}
                                 favoriteClickHandler = {favoriteClickHandler}
                                 bookmarkClickHandler = {bookmarkClickHandler}
+
                                 />
                             )
                         })}

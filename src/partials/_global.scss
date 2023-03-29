@@ -1,0 +1,50 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+
+body {
+    background-image: url(../../images/scott-webb-UjupleczBOY-unsplash.jpg);
+    background-size: cover;
+    background-repeat: none;
+}
+
+.App {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    max-height: auto;
+    width: 100%;
+    display: block;
+
+}
+
+.wrapper {
+    max-width: 1250px;
+    width: 85%;
+    margin: 0 auto;
+}
+
+/* END of global styles */

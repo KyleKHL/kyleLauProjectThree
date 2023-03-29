@@ -3,14 +3,15 @@ import Form from "./Form.js";
 import RecipeGallery from "./RecipeGallery.js";
 import Favorites from "./Favorites.js";
 import Bookmark from "./Bookmark.js";
+import ErrorPage from "./ErrorPage.js";
 
 // import Route
-import { Link, Route, Routes, Outlet, Router } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 
 
 // import firebase & modules:
 import firebaseInfo from "../firebase.js";
-import { getDatabase, ref, onValue, push, remove } from "firebase/database";
+import { getDatabase, ref, onValue, remove } from "firebase/database";
 // import react hooks
 import { useState, useEffect } from "react";
 
@@ -112,8 +113,9 @@ const UserSearch = () => {
     }
     // 4. handleChange function to allow react to control input state
     const handleChange = (event) => {
+        // return nothing if the user uses spaces in the inputs
         // if(event.target.value === ''){
-        //     setIngredInputOne('');
+        //     setValues('');
         // }
 
         const { name, value } = event.target;
@@ -122,8 +124,8 @@ const UserSearch = () => {
             ...values,
             [name]: value,
         });
-
-        // setIngredInputOne(event.target.value.trim());
+        // to trim the value so empty space is not entered as a value
+        // setValues(event.target.value.trim());
     };
 
     // 2. fetch data from API
@@ -145,7 +147,6 @@ const UserSearch = () => {
         // fetch recipe data
         fetch(url)
             .then((res) => {
-
                 if (res.ok){
                     return res.json();
                 }else{
@@ -154,17 +155,21 @@ const UserSearch = () => {
             })
             .then((apiData) => {
                 const apiArray = apiData.hits;
-                apiArray.splice(10, 10)
+                apiArray.splice(9, 11);
                 // update recipe state:
-                setRecipe(apiArray)
+                setRecipe(apiArray);
                 // update apiError as false
-                setApiError(false)
+                setApiError(false);
+                // set values back to normal
+                setValues(initialValues)
             })
             .catch((error) => {
                 // update apiError as true
                 setApiError(true)
                 // update the recipe state to empty array
                 setRecipe([])
+                // set values back to normal
+                setValues(initialValues)
             })
 
     }
@@ -173,6 +178,13 @@ const UserSearch = () => {
         <>
         {/* pass down error state to form */}
         {/* pass down handleSubmit callback function to form */}
+            {apiError === true ?
+                <div className="wrapper">
+                <h2>Sorry, unfortunately the free version of this API can only generate 10 calls a minute! Please wait a minute to search for more recipes!</h2>
+                </div> 
+                : null}
+
+
             <Form 
                 errorState = {apiError}
                 handleSubmit = {handleSubmit}
@@ -201,18 +213,26 @@ const UserSearch = () => {
                     path="/" 
                     element={ <RecipeGallery 
                                 recipeArray={recipe} 
-                                /> } />
+                                /> } 
+                />
                 <Route 
                     path="/favorites" 
                     element={<Favorites 
                                 favRecipeList={favData}
                                 removeClickHandler={removeFavClickHandler}
-                                />} />
+                                />} 
+                />
                 <Route 
                     path="/bookmark" 
                     element={<Bookmark 
                                 bookmarkRecipeList={bookmarkData}
-                                removeClickHandler={removeBookmarkedClickHandler}/>} />
+                                removeClickHandler={removeBookmarkedClickHandler}/>} 
+                />
+                <Route 
+                    path="*"
+                    element={<ErrorPage/>}
+                
+                />
             </Routes>
             
             
