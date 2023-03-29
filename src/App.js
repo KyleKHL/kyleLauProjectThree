@@ -1,5 +1,5 @@
 // App.js
-import './App.scss';
+import './Css/App.css';
 
 // import content to page
 import Header from './components/Header.js';
