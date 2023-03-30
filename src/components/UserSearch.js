@@ -128,8 +128,8 @@ const UserSearch = () => {
     // 2. fetch data from API
     const fetchRecipeData = () => {
         // construct URL
-        const appId = 'fc3a2a4e';
-        const apiKey = '5fabaeb42a0ec8a788b0ba21d8c502ef';
+        const appId = process.env.REACT_APP_API_ID;
+        const apiKey = process.env.REACT_APP_API_KEY;
         const url = new URL('https://api.edamam.com/api/recipes/v2');
         url.search = new URLSearchParams({
             app_id: appId,
