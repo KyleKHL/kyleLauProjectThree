@@ -25,6 +25,9 @@ const UserSearch = () => {
     // 1b) initialize state for API request error
     const [ apiError, setApiError ] = useState(false);
 
+    // 1c) initialize state for when no results come back from API
+    const [ apiNoResultError, setApiNoResultError ] = useState(false);
+
     // DB A) create state for favorited recipes
         const [favData, setFavData] = useState([])
     // B) create state for bookmarked recipes
@@ -113,10 +116,6 @@ const UserSearch = () => {
     }
     // 4. handleChange function to allow react to control input state
     const handleChange = (event) => {
-        // return nothing if the user uses spaces in the inputs
-        // if(event.target.value === ''){
-        //     setValues('');
-        // }
 
         const { name, value } = event.target;
 
@@ -124,8 +123,6 @@ const UserSearch = () => {
             ...values,
             [name]: value,
         });
-        // to trim the value so empty space is not entered as a value
-        // setValues(event.target.value.trim());
     };
 
     // 2. fetch data from API
@@ -156,6 +153,12 @@ const UserSearch = () => {
             .then((apiData) => {
                 const apiArray = apiData.hits;
                 apiArray.splice(9, 11);
+
+                if (apiArray.length === 0){
+                    setApiNoResultError(true)
+                } else {
+                    setApiNoResultError(false)
+                }
                 // update recipe state:
                 setRecipe(apiArray);
                 // update apiError as false
@@ -178,13 +181,18 @@ const UserSearch = () => {
         <>
         {/* pass down error state to form */}
         {/* pass down handleSubmit callback function to form */}
+        <section className="errorSection">
             {apiError === true ?
-                <div className="wrapper">
-                <h2>Sorry, unfortunately the free version of this API can only generate 10 calls a minute! Please wait a minute to search for more recipes!</h2>
+                <div className="wrapper ">
+                    <p className="errorMessage">Sorry, unfortunately the free version of this API can only generate 10 calls a minute! Please wait a minute to search for more recipes!</p>
                 </div> 
                 : null}
-
-
+            { apiNoResultError === true ?
+                <div className="wrapper">
+                        <p className="errorMessage">Sorry, your search returned <span className="noResultsText">no results</span>. Please try again!</p>
+                </div>
+                : null}
+        </section>
             <Form 
                 errorState = {apiError}
                 handleSubmit = {handleSubmit}

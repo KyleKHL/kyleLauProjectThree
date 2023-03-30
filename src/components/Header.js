@@ -5,7 +5,19 @@ const Header = () => {
         <header>
             <div className="wrapper">
                 <h1>Recipe Genius</h1>
-                <p>Welcome to Recipe Genius, the app that turns your kitchen leftovers into delicious meals! <br /> Simply enter a <strong>minimum of one ingredient</strong>, select your <strong>meal type</strong> and <strong>cuisine</strong>, and click "Submit" to get a list of recipes. You can save your favorite recipes in the bookmark and favorite sections for easy access. <br /> Let's get cooking with Recipe Genius!</p>
+                <div className="instructionContainer">
+                    <p>Welcome to Recipe Genius, the app that transforms any ingredients you have into delicious recipes!</p>
+                    <div className="instructionSet">
+                        <p>Start by following these steps:</p>
+                        <ol>
+                            <li>Enter a minimum of one ingredient.</li>
+                            <li>Select your preferred meal type and cuisine.</li>
+                            <li>Click "Submit" to get a list of recipes.</li>
+                        </ol>
+                    </div>
+                    <p>You can save recipes in the favorite and bookmark sections for easy access.</p>
+                    <p>Let's get cooking with Recipe Genius!</p>
+                </div>
             </div>
         </header>
         

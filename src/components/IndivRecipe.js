@@ -12,7 +12,7 @@ const IndivRecipe = (props) => {
                     <span aria-label="Favorite Recipe">💖</span>
                 </button>
                 <button onClick={props.bookmarkClickHandler}>
-                    <span aria-label="Bookmark Recipe">🔖</span> 
+                    <span aria-label="Bookmark Recipe">📙</span> 
                 </button>
             </div>
         </li>

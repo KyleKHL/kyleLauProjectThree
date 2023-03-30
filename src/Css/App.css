@@ -263,6 +263,12 @@ ul {
   padding: 0;
 }
 
+ol {
+  padding: 0;
+  margin: 0;
+  list-style-position: inside;
+}
+
 a {
   text-decoration: none;
 }
@@ -277,6 +283,10 @@ img {
   max-width: 1250px;
   width: 85%;
   margin: 0 auto;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 /* font for body */
@@ -296,15 +306,23 @@ header h1 {
   -webkit-text-stroke: 1px rgba(0, 0, 0, 0.2);
   -webkit-text-fill-color: transparent;
 }
-header p {
-  text-align: center;
+header .instructionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-size: 1.2rem;
   background-color: rgba(255, 255, 255, 0.586);
-  padding: 5px;
+  padding: 10px;
+  text-align: center;
+}
+header .instructionSet {
+  margin: 16px 0;
+  text-align: left;
 }
 
 .formSection {
-  margin: 30px 0;
+  margin-top: 10px;
+  margin-bottom: 30px;
 }
 .formSection .wrapper {
   display: flex;
@@ -362,7 +380,7 @@ header p {
 }
 
 .menu {
-  margin: 80px 0 42px 0;
+  margin-top: 40px;
 }
 .menu .menuList {
   display: flex;
@@ -370,6 +388,7 @@ header p {
 }
 
 .menuItem {
+  display: block;
   font-size: 1.25rem;
   font-family: "Playfair Display", serif;
   font-weight: 900;
@@ -588,6 +607,24 @@ header p {
   box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.2);
 }
 
+.errorSection {
+  margin-top: 10px;
+}
+.errorSection .wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.errorSection .wrapper p {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.errorSection .wrapper p .noResultsText {
+  text-decoration: underline;
+}
+
 footer {
   margin: 50px 0 20px 0;
 }
@@ -612,33 +649,23 @@ footer p a:focus {
     font-size: 5rem;
     line-height: 130px;
   }
-  header p {
-    margin-top: 30px;
+  header .instructionContainer {
+    margin-top: 16px;
   }
-}
-@media (max-width: 850px) {
   .recipeGallery,
   .listOfFavorites,
   .listOfBookmarks {
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
   }
   .recipeGallery li,
   .listOfFavorites li,
   .listOfBookmarks li {
-    flex-direction: row;
-    width: 85%;
-    padding: 20px;
-  }
-  .recipeGallery li img,
-  .listOfFavorites li img,
-  .listOfBookmarks li img {
-    width: 100%;
+    width: calc(50% - 20px);
   }
 }
 @media (max-width: 730px) {
-  .menu {
-    margin-bottom: 13px;
+  header .instructionContainer {
+    font-size: 1rem;
   }
   .menuItem {
     padding: 10px;
@@ -654,25 +681,29 @@ footer p a:focus {
     flex-direction: column;
     padding: 5px;
   }
+}
+@media (max-width: 550px) {
+  .recipeGallery li,
+  .listOfFavorites li,
+  .listOfBookmarks li {
+    width: 100%;
+  }
   .recipeGallery li img,
   .listOfFavorites li img,
   .listOfBookmarks li img {
     width: 70%;
   }
+  footer p {
+    font-size: 1.3rem;
+  }
 }
 @media (max-width: 460px) {
-  header p {
+  .errorSection .wrapper p {
     font-size: 1rem;
-  }
-  .menu {
-    margin-bottom: -13px;
   }
   .menu .menuList {
     flex-direction: column;
     align-items: center;
-  }
-  .menu .menuList li {
-    height: 55px;
   }
 }
 @media (max-width: 400px) {

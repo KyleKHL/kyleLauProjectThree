@@ -5,33 +5,25 @@
         font-size: 5rem;
         line-height: 130px;
         }
-        p {
-            margin-top: 30px;
+        .instructionContainer {
+            margin-top: 16px;
+        }
+    }
+    .recipeGallery,
+    .listOfFavorites,
+    .listOfBookmarks {
+        justify-content: center;
+        li {
+            width: calc((100% / 2) - 20px);
         }
     }
 }
 
-@media (max-width: 850px) {
-    .recipeGallery,
-    .listOfFavorites,
-    .listOfBookmarks {
-        flex-direction: column;
-        align-items: center;
-        li {
-                flex-direction: row;
-                width: 85%;
-                padding: 20px;
-            img{
-                width: 100%;
-            }
-            }
-    }
-}
+
 
 @media (max-width: 730px) {
-    // nav
-    .menu {
-        margin-bottom: 13px;
+    header .instructionContainer {
+        font-size: 1rem;
     }
 
     .menuItem {
@@ -49,29 +41,35 @@
         li {
             flex-direction: column;
             padding: 5px;
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    .recipeGallery,
+    .listOfFavorites,
+    .listOfBookmarks {
+        li {
+            width: 100%;
             img{
                 width: 70%;
             }
         }
     }
+    footer p {
+        font-size: 1.3rem;
+    }
 }
 
-@media (max-width: 460px) {
-    header p {
-        font-size: 1rem;
-    }
 
-    .menu{
-        margin-bottom: -13px;
-        .menuList {
+@media (max-width: 460px) {
+    .errorSection .wrapper p {
+            font-size: 1rem;
+        }
+    .menu .menuList {
             flex-direction: column;
             align-items: center;
-    
-            li {
-                height: 55px;
-            }
         }
-    }
 }
 
 

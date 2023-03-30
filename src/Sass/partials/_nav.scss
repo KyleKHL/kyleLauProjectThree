@@ -1,7 +1,6 @@
 // nav
 .menu {
-    margin: 80px 0 42px 0;
-
+    margin-top: 40px;
     .menuList {
         display: flex;
         justify-content: center;
@@ -9,6 +8,7 @@
 }
 
 .menuItem {
+    display: block;
     font-size: 1.25rem;
     font-family: 'Playfair Display', serif;
     font-weight: 900;
