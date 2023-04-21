@@ -46,6 +46,21 @@
 }
 
 @media (max-width: 550px) {
+
+    .ingredientForm {
+        min-width: unset;
+        width: 100%;
+        button {
+            font-size: 1rem;
+        }
+    }
+
+    .advSearch {
+        font-size: 1rem;
+    }
+
+
+
     .recipeGallery,
     .listOfFavorites,
     .listOfBookmarks {
@@ -81,9 +96,13 @@
         line-height: 100px;
     }
 
-    .ingredientForm {
-        width: 100%;
-        min-width: auto;
+    .formSection .wrapper{
+        gap: 4px;
+    }
+
+    .advSearch {
+        padding-left: 5px;
+        padding-right: 5px;
     }
 
     .recipeGallery,

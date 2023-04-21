@@ -1,32 +1,30 @@
 // Form.js
-
-const Form = (props) => {
+const Form = ({handleSubmit, handleChange, inputValue, bigSearch, bigSearchHandler}) => {
 
     return (
         <section className="formSection">
             <div className="wrapper">
-                <form className="ingredientForm" onSubmit={props.handleSubmit}>
-                    {/* error message */}
-                    {/* <p>Sorry! Unfortunately with the free version of the API, there can only be 10 API calls a minute . . .  please wait a minute for more API calls to get those tasty recipes! </p> */}
-                    <label htmlFor="userInput" className="sr-only">Enter Ingredient #1</label>
+                <form className="ingredientForm" onSubmit={handleSubmit}>
+                    <label htmlFor="userInputOne" className="sr-only">Enter Ingredient #1</label>
                     <input 
                         type="text" 
                         id="userInputOne"
                         name="inputOne"
                         placeholder="Ingredient #1"
-                        onChange={props.handleChange}
-                        // value={props.typedIngredValue}
-                        value={props.inputValue.inputOne}
+                        onChange={handleChange}
+                        value={inputValue.inputOne}
                         required
                     />
+                    { bigSearch ?
+                    <>
                     <label htmlFor="userInputTwo" className="sr-only">Optional: Enter Ingredient #2</label>
                     <input 
                         type="text" 
                         id="userInputTwo"
                         name="inputTwo"
                         placeholder="Optional: Ingredient #2"
-                        onChange={props.handleChange}
-                        value={props.inputValue.inputTwo}
+                        onChange={handleChange}
+                        value={inputValue.inputTwo}
                     />
                     <label htmlFor="userInputThree" className="sr-only">Optional: Enter Ingredient #3</label>
                     <input
@@ -34,16 +32,16 @@ const Form = (props) => {
                         id="userInputThree"
                         name="inputThree"
                         placeholder="Optional: Ingredient #3"
-                        onChange={props.handleChange}
-                        value={props.inputValue.inputThree}
+                        onChange={handleChange}
+                        value={inputValue.inputThree}
                     />
 
                     <label htmlFor="mealType" className="sr-only">Select Meal Type:</label>
                     <select 
                     name="selectMealType" 
                     id="mealType" 
-                    onChange={props.handleChange}
-                    value={props.inputValue.selectMealType}
+                    onChange={handleChange}
+                    value={inputValue.selectMealType}
                     required
                     >
                         <option value="" disabled>Meal Type:</option>
@@ -59,8 +57,8 @@ const Form = (props) => {
                     <select
                         name="cuisineType"
                         id="enterCuisineType"
-                        onChange={props.handleChange}
-                        value={props.inputValue.cuisineType}
+                        onChange={handleChange}
+                        value={inputValue.cuisineType}
                         required
                     >
                         <option value="" disabled>Cuisine:</option>
@@ -83,9 +81,13 @@ const Form = (props) => {
                         <option value="South American">South American</option>
                         <option value="South East Asian">South East Asian</option>
                     </select>
+                        </>
+                    :
+                    null}
 
                     <button>Submit</button>
                 </form>
+                <button className="advSearch" onClick={bigSearchHandler}>Refine</button>
             </div>
         </section>
     )

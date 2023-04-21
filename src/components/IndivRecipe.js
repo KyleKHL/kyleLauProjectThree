@@ -1,17 +1,17 @@
 // IndivRecipe.js
 
-const IndivRecipe = (props) => {
+const IndivRecipe = ({ title, image, altText, url, favoriteClickHandler, bookmarkClickHandler }) => {
 
     return(
         <li>
-            <h3>{props.title}</h3>
-            <img src={props.image} alt={props.altText} />
-            <a target={"_blank"} href={props.url}>Read More</a>
+            <h3>{title}</h3>
+            <img src={image} alt={altText} />
+            <a target={"_blank"} href={url}>Read More</a>
             <div className="buttonContainer">
-                <button onClick={props.favoriteClickHandler}>
+                <button onClick={favoriteClickHandler}>
                     <span aria-label="Favorite Recipe">💖</span>
                 </button>
-                <button onClick={props.bookmarkClickHandler}>
+                <button onClick={bookmarkClickHandler}>
                     <span aria-label="Bookmark Recipe">📙</span> 
                 </button>
             </div>

@@ -28,74 +28,22 @@ const UserSearch = () => {
     // 1c) initialize state for when no results come back from API
     const [ apiNoResultError, setApiNoResultError ] = useState(false);
 
-    // DB A) create state for favorited recipes
-        const [favData, setFavData] = useState([])
-    // B) create state for bookmarked recipes
-        const [bookmarkData, setBookmarkData] = useState([])
-
-    // start of firebase
-    useEffect(() => {
-
-        const database = getDatabase(firebaseInfo);
-        // reference to favorite obj
-        const favDBRef = ref(database, `favorites`)
-        // reference to bookmark obj
-        const bookmarkDBRef = ref(database, `bookmark`)
-
-        onValue(favDBRef, (dbResponse) => {
-            
-            // empty array for favorites page
-            const favArray = [];
-
-            const favRecipeData = dbResponse.val();
-            
-            for (let key in favRecipeData) {
-                // favArray.push(favRecipeData[key])
-                favArray.push({ key: key, name: favRecipeData[key] })
-            }
-            setFavData(favArray)
-
-        })
-
-        onValue(bookmarkDBRef, (dbResponse) => {
-
-            // empty array for favorites page
-            const bookmarkArray = [];
-
-            const bookmarkRecipeData = dbResponse.val();
-            
-            for (let key in bookmarkRecipeData) {
-
-                bookmarkArray.push({ key: key, name: bookmarkRecipeData[key] })
-            }
-            setBookmarkData(bookmarkArray)
-
-        })
-
-    }, [])
-        // end of firebase
-
-    // function to remove favorited items
-    const removeFavClickHandler = (recipeId) => {
-        // reference to the key
-        const database = getDatabase(firebaseInfo);
-        const dbRef = ref(database, `favorites/${recipeId}`)
-
-        // firebase method to remove()
-        remove(dbRef)
+    const [bigSearch, setBigSearch] = useState(false);
+    const bigSearchHandler = () => {
+        setBigSearch(!bigSearch)
     }
+
+    const [ loadingState, setLoadingState ] = useState(false);
+
 
     // function to remove bookmarked items
     const removeBookmarkedClickHandler = (recipeId) => {
         // reference to the key
         const database = getDatabase(firebaseInfo);
         const dbRef = ref(database, `bookmark/${recipeId}`)
-
         // firebase method to remove()
         remove(dbRef)
     }
-
-
 
     // create default values to ALL inputfields 
     const initialValues = {
@@ -112,7 +60,11 @@ const UserSearch = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         // call function to fetch data from API
-        fetchRecipeData()
+        if(bigSearch === false){
+            fetchRecipeDataOne()
+        }else{
+            fetchRecipeDataFull()
+        }
     }
     // 4. handleChange function to allow react to control input state
     const handleChange = (event) => {
@@ -124,9 +76,58 @@ const UserSearch = () => {
             [name]: value,
         });
     };
+// ******
+    // 2. fetch data from API
+    const fetchRecipeDataOne = () => {
+        // construct URL
+        const appId = process.env.REACT_APP_API_ID;
+        const apiKey = process.env.REACT_APP_API_KEY;
+        const url = new URL('https://api.edamam.com/api/recipes/v2');
+        url.search = new URLSearchParams({
+            app_id: appId,
+            app_key: apiKey,
+            type: 'public',
+            q: `${values.inputOne}`,
+            random: true,
+        })
+
+        // fetch recipe data
+        fetch(url)
+            .then((res) => {
+                if (res.ok) {
+                    return res.json();
+                } else {
+                    throw new Error(res);
+                }
+            })
+            .then((apiData) => {
+                const apiArray = apiData.hits;
+                apiArray.splice(9, 11);
+
+                if (apiArray.length === 0) {
+                    setApiNoResultError(true)
+                } else {
+                    setApiNoResultError(false)
+                }
+                // update recipe state:
+                setRecipe(apiArray);
+                // update apiError as false
+                setApiError(false);
+                // set values back to normal
+                setValues(initialValues)
+            })
+            .catch((error) => {
+                // update apiError as true
+                setApiError(true)
+                // update the recipe state to empty array
+                setRecipe([])
+                // set values back to normal
+                setValues(initialValues)
+            })
+    }
 
     // 2. fetch data from API
-    const fetchRecipeData = () => {
+    const fetchRecipeDataFull = () => {
         // construct URL
         const appId = process.env.REACT_APP_API_ID;
         const apiKey = process.env.REACT_APP_API_KEY;
@@ -174,7 +175,6 @@ const UserSearch = () => {
                 // set values back to normal
                 setValues(initialValues)
             })
-
     }
 
     return(
@@ -184,7 +184,7 @@ const UserSearch = () => {
         <section className="errorSection">
             {apiError === true ?
                 <div className="wrapper ">
-                    <p className="errorMessage">Sorry, unfortunately the free version of this API can only generate 10 calls a minute! Please wait a minute to search for more recipes!</p>
+                    <p className="errorMessage">Sorry! The API call was unsuccessful! The free version of the API only has 10 calls a minute. Please wait a minute to search for more recipes!</p>
                 </div> 
                 : null}
             { apiNoResultError === true ?
@@ -198,6 +198,8 @@ const UserSearch = () => {
                 handleSubmit = {handleSubmit}
                 handleChange = {handleChange}
                 inputValue = {values}
+                bigSearch = {bigSearch}
+                bigSearchHandler={bigSearchHandler}
             />
 
             <nav className="menu">
@@ -225,16 +227,11 @@ const UserSearch = () => {
                 />
                 <Route 
                     path="/favorites" 
-                    element={<Favorites 
-                                favRecipeList={favData}
-                                removeClickHandler={removeFavClickHandler}
-                                />} 
+                    element={<Favorites />} 
                 />
                 <Route 
                     path="/bookmark" 
-                    element={<Bookmark 
-                                bookmarkRecipeList={bookmarkData}
-                                removeClickHandler={removeBookmarkedClickHandler}/>} 
+                    element={<Bookmark />} 
                 />
                 <Route 
                     path="*"

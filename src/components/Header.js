@@ -10,9 +10,9 @@ const Header = () => {
                     <div className="instructionSet">
                         <p>Start by following these steps:</p>
                         <ol>
-                            <li>Enter a minimum of one ingredient.</li>
-                            <li>Select your preferred meal type and cuisine.</li>
-                            <li>Click "Submit" to get a list of recipes.</li>
+                            <li>Enter at least one ingredient into the search bar</li>
+                            <li>Optional: Click the "Refine" button to add more search options</li>
+                            <li>Click "Submit" to find recipes that match your search criteria</li>
                         </ol>
                     </div>
                     <p>You can save recipes in the favorite and bookmark sections for easy access.</p>
